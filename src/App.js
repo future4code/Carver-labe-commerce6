@@ -129,15 +129,6 @@ adicionaCarrinho = () => {
 
 }
 
-
-
-
-
-
-
-
-
-
  
   render() {
 

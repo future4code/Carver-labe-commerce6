@@ -122,8 +122,15 @@ class App extends React.Component {
         nome: "Produto Cinco",
         preco: "5,00",
       },
+      {
+        id: Math.floor(Date.now() * Math.random()).toString(36),
+        imagem: "https://picsum.photos/400/400?a=2",
+        nome: "Produto Seis",
+        preco: "588,00",
+      },
+
     ],
-    quantidadeProutos : 0,
+    quantidadeProdutos : null,
     bucarPorNome: "Produto1",
     valorMinimo: null,
     valorMaximo: null,
@@ -139,6 +146,12 @@ class App extends React.Component {
       }
     ]
   };
+
+
+    
+  
+
+
 
   onChangeBucarPorNome = (event) => {
     this.setState({ bucarPorNome: event.target.value });
@@ -171,11 +184,7 @@ class App extends React.Component {
       return produto.id == e.target.value
     })
 
-    let produtoCarrinho = this.state.carrinho.filter((carrinho) => {
-      console.log(carrinho.produto.id, e.target.value)
-      return carrinho.produto.id == e.target.value
-    })
-
+   
    
     
     let controle = 0;
@@ -201,9 +210,38 @@ class App extends React.Component {
       }, () => console.log(this.state.carrinho))
     } 
   };
+ 
+  carrinhoProduto = () => {
+    return this.state.carrinho.map((carrinho)=>{
+      
+      return (
+        <ProdutoCarrinho>
+            <p>{carrinho.quantidade}</p>
+            <p>{carrinho.produto.nome}</p>
+            <button>Remover</button>
+          </ProdutoCarrinho>
+      )
+    })
+
+  }
+
+  valorCarrinho = () => {
+   let valorTotal = 0 
+    let testeValor = this.state.carrinho.map((item) =>{
+      valorTotal = (parseFloat(item.produto.preco) * parseFloat(item.quantidade)) + valorTotal
+      
+    })
+    return valorTotal 
+     
+  }
+
+
+
 
   render() {
-    let produtosCarregados = this.carregarProdutos()
+    let produtosCarregados = this.carregarProdutos() 
+    let carrinhoProduto = this.carrinhoProduto()
+    this.valorCarrinho()
     return (
       <Body>
         <FilterArea>
@@ -237,7 +275,7 @@ class App extends React.Component {
         <AreaProdutos>
           <HeadProdutos>
             <p>
-              Quantidade de produtos: <b>4</b>
+              Quantidade de produtos: <b>{produtosCarregados.length}</b>
             </p>
             <div>
               <label>Ordenação:</label>
@@ -254,18 +292,10 @@ class App extends React.Component {
         </AreaProdutos>
         <AreaCarrinho>
           <h3>Carrinho:</h3>
-          <ProdutoCarrinho>
-            <p>2x</p>
-            <p>Produto Um</p>
-            <button>Remover</button>
-          </ProdutoCarrinho>
-          <ProdutoCarrinho>
-            <p>1x</p>
-            <p>Produto Dois</p>
-            <button>Remover</button>
-          </ProdutoCarrinho>
+          {carrinhoProduto}
+          
           <p>
-            Valor total: <b>R$100,00</b>
+            Valor total: <b>{this.valorCarrinho()}</b>
           </p>
         </AreaCarrinho>
       </Body>

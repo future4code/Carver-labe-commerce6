@@ -95,6 +95,40 @@ const CardProdutos = styled.div`
 `
 
 class App extends React.Component {
+
+
+state = {
+
+  bucarPorNome: "Produto1", 
+  valorMinimo: null,
+  valorMaximo: null,
+  carrinho:[]
+}
+
+
+onChangeBucarPorNome = (event) =>{
+  this.setState(
+    {bucarPorNome: event.target.value},
+  )
+}
+
+onChangeValorMinimo = (event) =>{
+  this.setState(
+    {valorMinimo: event.target.value},
+    )
+}
+
+onChangeValorMaximo = (event) => {
+  this.setState(
+    {valorMaximo: event.target.value}, 
+  )
+}
+
+adicionaCarrinho = () => {
+
+
+}
+
  
   render() {
 
@@ -104,15 +138,15 @@ class App extends React.Component {
           <h3>Filtros</h3>
           <div>
             <label>Valor Mínimo:</label>
-            <input type="number"/>
+            <input value={this.state.valorMinimo} type="number" onChange={this.onChangeValorMinimo}/>
           </div>
           <div>
             <label>Valor Máximo:</label>
-            <input type="number"/>
+            <input value={this.state.valorMaximo}type="number" onChange={this.onChangeValorMaximo}/>
           </div>
           <div>
             <label>Buscar por Nome:</label>
-            <input type="text" placeholder="Produtos"/>
+            <input value={this.state.bucarPorNome} type="text" placeholder="Produtos" onChange={this.onChangeBucarPorNome}/>
           </div>
         </FilterArea>
         <AreaProdutos>

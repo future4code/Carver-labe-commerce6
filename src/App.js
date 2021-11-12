@@ -2,7 +2,9 @@ import React from "react";
 import styled from "styled-components";
 import Carrinho from "./Components/Carrinho/Carrinho";
 import Inputs from "./Components/Inputs/Inputs";
+
 import App extends React.Component from "./Imagens-Produtos"
+
 
 const Body = styled.div`
   * {
@@ -42,13 +44,6 @@ const AreaCarrinho = styled.section`
   h3 {
     margin-bottom: 10px;
   }
-`;
-const ProdutoCarrinho = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
 `;
 
 const HeadProdutos = styled.div`
@@ -126,7 +121,9 @@ class App extends React.Component {
 
     ],
     quantidadeProdutos : null,
+
     bucarPorNome: "Produto1",
+
     bucarPorNome: "",
     valorMinimo: null,
     valorMaximo: null,
@@ -186,7 +183,9 @@ class App extends React.Component {
   }
 
   carregarProdutos = () => {
+
     return this.state.produtos.map((produto) => {
+
     //carrega os produtos de acordo com os filtros
     let produtos = this.filtrarProdutos()
     if(produtos.length == 0){
@@ -210,6 +209,7 @@ class App extends React.Component {
       }
     }
 
+
     //cria o JFX dos produtos
     return produtos.map((produto) => {
       return (
@@ -223,12 +223,18 @@ class App extends React.Component {
         </CardProdutos>
       );
     });
+
   }
+
+  };
+
 
   adicionaCarrinho = (e) => {
     let produtoSelecionado = this.state.produtos.filter((produto) =>{
       return produto.id == e.target.value
     })
+
+
 
 
 
@@ -255,6 +261,41 @@ class App extends React.Component {
       }, () => console.log(this.state.carrinho))
     } 
   };
+ 
+  carrinhoProduto = () => {
+    return this.state.carrinho.map((carrinho)=>{
+      return (
+        <Carrinho 
+          produto={carrinho}
+          funcao={this.removerProdutoCarrinho}
+        />
+      )
+    })
+  }
+
+  removerProdutoCarrinho = (e) =>{
+    let produtoSelecionado = this.state.produtos.filter((produto) =>{
+      return produto.id == e.target.value
+    })
+
+    let carrinho = this.state.carrinho.filter((item) => {
+      return item.produto.id != e.target.value
+    })
+
+    this.setState({
+      carrinho : [...carrinho]
+    })
+  }
+
+  valorCarrinho = () => {
+   let valorTotal = 0 
+    this.state.carrinho.map((item) =>{
+      valorTotal = (parseFloat(item.produto.preco) * parseFloat(item.quantidade)) + valorTotal
+    })
+    return valorTotal 
+  }
+
+
 
   carrinhoProduto = () => {
     return this.state.carrinho.map((carrinho)=>{
@@ -300,6 +341,9 @@ class App extends React.Component {
 
 
     render() 
+
+  render() {
+
     let produtosCarregados = this.carregarProdutos() 
     let carrinhoProduto = this.carrinhoProduto()
     this.valorCarrinho()
@@ -307,7 +351,9 @@ class App extends React.Component {
       <Body>
         <FilterArea>
           <h3>Filtros</h3>
+
           <div>
+
           {/* <Filtro
           /> */}
           <Inputs
@@ -344,8 +390,10 @@ class App extends React.Component {
               type="number"
               onChange={this.onChangeValorMaximo}
             />
+
           </div>
           <div>
+
           </div> */}
           {/* <div>
             <label>Buscar por Nome:</label>
@@ -355,7 +403,9 @@ class App extends React.Component {
               placeholder="Produtos"
               onChange={this.onChangeBucarPorNome}
             />
+
           </div>
+
           </div> */}
         </FilterArea>
         <AreaProdutos>
@@ -365,7 +415,9 @@ class App extends React.Component {
             </p>
             <div>
               <label>Ordenação:</label>
+
               <select>
+
               <select onClick={this.onChangeOrdem}>
                 <option value="">Nenhum</option>
                 <option value="Crescente">Crescente</option>

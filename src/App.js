@@ -19,7 +19,9 @@ const EstiloGlobal = createGlobalStyle`
     padding: 0;
   }
 `
-
+const Header = styled.header`
+  
+`
 const FilterArea = styled.section`
   border: 1px solid black;
   height: 90vh;
@@ -110,7 +112,7 @@ class App extends React.Component {
     let carrinhoPersistido = localStorage.getItem("carrinho")
     carrinhoPersistido = JSON.parse(carrinhoPersistido)
     this.setState({
-      carrinho:carrinhoPersistido
+      carrinho:carrinhoPersistido || []
     })
   }
 
@@ -258,6 +260,7 @@ class App extends React.Component {
     return (
       <>
         <EstiloGlobal/>
+        <header>Header</header>
         <Body>
           <FilterArea>
             <h3>Filtros</h3>

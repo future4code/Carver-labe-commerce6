@@ -1,16 +1,13 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import Carrinho from "./Components/Carrinho/Carrinho";
 import Inputs from "./Components/Inputs/Inputs";
+import Produtos from "./Components/Produtos/Produtos";
 
 import App extends React.Component from "./Imagens-Produtos"
 
 
 const Body = styled.div`
-  * {
-    margin: 0;
-    padding: 0;
-  }
   border: 1px solid red;
   min-height: 100vh;
   display: flex;
@@ -18,6 +15,18 @@ const Body = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+const EstiloGlobal = createGlobalStyle`
+  * {
+    margin: 0;
+    padding: 0;
+  }
+`
+const Header = styled.header`
+  
+`
+=======
+
 const FilterArea = styled.section`
   border: 1px solid black;
   height: 90vh;
@@ -27,6 +36,7 @@ const FilterArea = styled.section`
     margin-bottom: 10px;
   }
 `;
+
 const AreaProdutos = styled.section`
   border: 1px solid green;
   width: 50%;
@@ -78,7 +88,7 @@ const CardProdutos = styled.div`
     width: 70%;
     margin: 0 auto;
   }
-`;
+ }
 class App extends React.Component {
   state = {
     produtos: [
@@ -142,10 +152,17 @@ class App extends React.Component {
   };
 
 
+  componentDidUpdate(){
+    localStorage.setItem("carrinho", JSON.stringify(this.state.carrinho))
+  }
 
-
-
-
+  componentDidMount(){
+    let carrinhoPersistido = localStorage.getItem("carrinho")
+    carrinhoPersistido = JSON.parse(carrinhoPersistido)
+    this.setState({
+      carrinho:carrinhoPersistido || []
+    })
+  }
 
   onChangeBucarPorNome = (event) => {
     this.setState({ bucarPorNome: event.target.value });
@@ -179,7 +196,7 @@ class App extends React.Component {
   onChangeOrdem = (e) => {
     this.setState({
       ordem: e.target.value
-    }, () => console.log(this.state.ordem))
+    })
   }
 
   carregarProdutos = () => {
@@ -208,24 +225,7 @@ class App extends React.Component {
         })
       }
     }
-
-
-    //cria o JFX dos produtos
-    return produtos.map((produto) => {
-      return (
-        <CardProdutos>
-          <img src={produto.imagem} />
-          <div>
-            <h5>{produto.nome}</h5>
-            <p>R$<span>{produto.preco}</span></p>
-            <button value={produto.id} onClick={this.adicionaCarrinho}>Adcionar Ao Carrinho</button>
-          </div>
-        </CardProdutos>
-      );
-    });
-
-  }
-
+    return produtos
   };
 
 
@@ -254,11 +254,11 @@ class App extends React.Component {
           produto : produtoSelecionado[0]
         }]
         
-      },() => console.log(this.state.carrinho))
+      })
     }else{
       this.setState({
         carrinho:carrinhoCarregado 
-      }, () => console.log(this.state.carrinho))
+      })
     } 
   };
  
@@ -274,17 +274,29 @@ class App extends React.Component {
   }
 
   removerProdutoCarrinho = (e) =>{
-    let produtoSelecionado = this.state.produtos.filter((produto) =>{
-      return produto.id == e.target.value
+    let controle = 0;
+    let produtosCarrinho = this.state.carrinho.map((item) => {
+      if(item.produto.id == e.target.value && item.quantidade > 1){
+        controle++
+        item.quantidade--
+      }
+
+      return item
     })
 
-    let carrinho = this.state.carrinho.filter((item) => {
-      return item.produto.id != e.target.value
-    })
+    if(controle == 0){
+      let carrinho = this.state.carrinho.filter((item) => {
+        return item.produto.id != e.target.value
+      })
+      this.setState({
+        carrinho : [...carrinho]
+      })
+    }else{
+      this.setState({
+        carrinho : produtosCarrinho
+      })
+    }
 
-    this.setState({
-      carrinho : [...carrinho]
-    })
   }
 
   valorCarrinho = () => {
@@ -340,111 +352,52 @@ class App extends React.Component {
   }
 
 
-    render() 
-
-  render() {
-
-    let produtosCarregados = this.carregarProdutos() 
+    render() { 
     let carrinhoProduto = this.carrinhoProduto()
-    this.valorCarrinho()
     return (
-      <Body>
-        <FilterArea>
-          <h3>Filtros</h3>
-
-          <div>
-
-          {/* <Filtro
-          /> */}
-          <Inputs
-            titulo="Valor Mínimo:"
-            valor={this.state.valorMinimo}
-            tipo="number"
-            funcao={this.onChangeValorMinimo}
-          />
-          <Inputs
-            titulo="Valor Máximo:"
-            valor={this.state.valorMaximo}
-            tipo="number"
-            funcao={this.onChangeValorMaximo}
-          />
-          <Inputs
-            titulo="Buscar por Nome:"
-            valor={this.state.bucarPorNome}
-            tipo="text"
-            funcao={this.onChangeBucarPorNome}
-            place="Camisa, Calça"
-          />
-          {/* <div>
-            <label>Valor Mínimo:</label>
-            <input
-              value={this.state.valorMinimo}
-              type="number"
-              onChange={this.onChangeValorMinimo}
+      <>
+        <EstiloGlobal/>
+        <header>Header</header>
+        <Body>
+          <FilterArea>
+            <h3>Filtros</h3>
+            <Inputs
+              titulo="Valor Mínimo:"
+              valor={this.state.valorMinimo}
+              tipo="number"
+              funcao={this.onChangeValorMinimo}
             />
-          </div>
-          <div>
-            <label>Valor Máximo:</label>
-            <input
-              value={this.state.valorMaximo}
-              type="number"
-              onChange={this.onChangeValorMaximo}
+            <Inputs
+              titulo="Valor Máximo:"
+              valor={this.state.valorMaximo}
+              tipo="number"
+              funcao={this.onChangeValorMaximo}
             />
-
-          </div>
-          <div>
-
-          </div> */}
-          {/* <div>
-            <label>Buscar por Nome:</label>
-            <input
-              value={this.state.bucarPorNome}
-              type="text"
-              placeholder="Produtos"
-              onChange={this.onChangeBucarPorNome}
+            <Inputs
+              titulo="Buscar por Nome:"
+              valor={this.state.bucarPorNome}
+              tipo="text"
+              funcao={this.onChangeBucarPorNome}
+              place="Camisa, Calça"
             />
-
-          </div>
-
-          </div> */}
-        </FilterArea>
-        <AreaProdutos>
-          <HeadProdutos>
+          </FilterArea>
+          <Produtos
+            produtos={this.carregarProdutos()}
+            funcaoOrdem={this.onChangeOrdem}
+            funcaoAdcionarCarrinho={this.adicionaCarrinho}
+          />
+          <AreaCarrinho>
+            <h3>Carrinho:</h3>
+            {carrinhoProduto}
+            
             <p>
-              Quantidade de produtos: <b>{produtosCarregados.length}</b>
+              Valor total: <b>R$: {this.valorCarrinho()}</b>
             </p>
-            <div>
-              <label>Ordenação:</label>
-
-              <select>
-
-              <select onClick={this.onChangeOrdem}>
-                <option value="">Nenhum</option>
-                <option value="Crescente">Crescente</option>
-                <option value="Decrescente">Decrescente</option>
-              </select>
-            </div>
-          </HeadProdutos>
-          <AreaCardProdutos>
-            {produtosCarregados}
-          </AreaCardProdutos>
-        </AreaProdutos>
-        <AreaCarrinho>
-          <h3>Carrinho:</h3>
-          {carrinhoProduto}
-          
-          <p>
-            Valor total: <b>{this.valorCarrinho()}</b>
-          </p>
-        </AreaCarrinho>
-
-       
-
-          
-
-      </Body>
+          </AreaCarrinho>
+        </Body>
+      </>
     );
   }
 }
+
 export default App;
-  

@@ -258,11 +258,24 @@ class App extends React.Component {
         <ProdutoCarrinho>
             <p>{carrinho.quantidade}</p>
             <p>{carrinho.produto.nome}</p>
-            <button>Remover</button>
-          </ProdutoCarrinho>
+            <button value={carrinho.produto.id} onClick={this.removerProdutoCarrinho}>Remover</button>
+        </ProdutoCarrinho>
       )
     })
+  }
 
+  removerProdutoCarrinho = (e) =>{
+    let produtoSelecionado = this.state.produtos.filter((produto) =>{
+      return produto.id == e.target.value
+    })
+
+    let carrinho = this.state.carrinho.filter((item) => {
+      return item.produto.id != e.target.value
+    })
+
+    this.setState({
+      carrinho : [...carrinho]
+    })
   }
 
   valorCarrinho = () => {

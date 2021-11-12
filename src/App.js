@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import Carrinho from "./Components/Carrinho/Carrinho";
+import Inputs from "./Components/Inputs/Inputs";
 
 const Body = styled.div`
   * {
@@ -43,13 +45,6 @@ const AreaCarrinho = styled.section`
   h3 {
     margin-bottom: 10px;
   }
-`;
-const ProdutoCarrinho = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
 `;
 
 const HeadProdutos = styled.div`
@@ -255,11 +250,10 @@ class App extends React.Component {
   carrinhoProduto = () => {
     return this.state.carrinho.map((carrinho)=>{
       return (
-        <ProdutoCarrinho>
-            <p>{carrinho.quantidade}</p>
-            <p>{carrinho.produto.nome}</p>
-            <button value={carrinho.produto.id} onClick={this.removerProdutoCarrinho}>Remover</button>
-        </ProdutoCarrinho>
+        <Carrinho 
+          produto={carrinho}
+          funcao={this.removerProdutoCarrinho}
+        />
       )
     })
   }
@@ -297,7 +291,28 @@ class App extends React.Component {
       <Body>
         <FilterArea>
           <h3>Filtros</h3>
-          <div>
+          {/* <Filtro
+          /> */}
+          <Inputs
+            titulo="Valor Mínimo:"
+            valor={this.state.valorMinimo}
+            tipo="number"
+            funcao={this.onChangeValorMinimo}
+          />
+          <Inputs
+            titulo="Valor Máximo:"
+            valor={this.state.valorMaximo}
+            tipo="number"
+            funcao={this.onChangeValorMaximo}
+          />
+          <Inputs
+            titulo="Buscar por Nome:"
+            valor={this.state.bucarPorNome}
+            tipo="text"
+            funcao={this.onChangeBucarPorNome}
+            place="Camisa, Calça"
+          />
+          {/* <div>
             <label>Valor Mínimo:</label>
             <input
               value={this.state.valorMinimo}
@@ -312,8 +327,8 @@ class App extends React.Component {
               type="number"
               onChange={this.onChangeValorMaximo}
             />
-          </div>
-          <div>
+          </div> */}
+          {/* <div>
             <label>Buscar por Nome:</label>
             <input
               value={this.state.bucarPorNome}
@@ -321,7 +336,7 @@ class App extends React.Component {
               placeholder="Produtos"
               onChange={this.onChangeBucarPorNome}
             />
-          </div>
+          </div> */}
         </FilterArea>
         <AreaProdutos>
           <HeadProdutos>

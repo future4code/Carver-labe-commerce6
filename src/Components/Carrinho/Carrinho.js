@@ -9,12 +9,12 @@ const ProdutoCarrinho = styled.div`
   margin-bottom: 10px;
 `;
 
-export default function Carrinho() {
+export default function Carrinho(props) {
     return (
         <ProdutoCarrinho>
-            <p>{carrinho.quantidade}</p>
-            <p>{carrinho.produto.nome}</p>
-            <button>Remover</button>
+            <p>{props.produto.quantidade}</p>
+            <p>{props.produto.produto.nome}</p>
+            <button value={props.produto.produto.id} onClick={props.funcao}>Remover</button>
         </ProdutoCarrinho>
     )
 }

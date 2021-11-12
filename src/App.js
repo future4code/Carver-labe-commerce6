@@ -102,6 +102,18 @@ class App extends React.Component {
     ]
   };
 
+  componentDidUpdate(){
+    localStorage.setItem("carrinho", JSON.stringify(this.state.carrinho))
+  }
+
+  componentDidMount(){
+    let carrinhoPersistido = localStorage.getItem("carrinho")
+    carrinhoPersistido = JSON.parse(carrinhoPersistido)
+    this.setState({
+      carrinho:carrinhoPersistido
+    })
+  }
+
   onChangeBucarPorNome = (event) => {
     this.setState({ bucarPorNome: event.target.value });
   };
@@ -136,7 +148,7 @@ class App extends React.Component {
   onChangeOrdem = (e) => {
     this.setState({
       ordem: e.target.value
-    }, () => console.log(this.state.ordem))
+    })
   }
 
   carregarProdutos = () => {
@@ -185,11 +197,11 @@ class App extends React.Component {
           produto : produtoSelecionado[0]
         }]
         
-      },() => console.log(this.state.carrinho))
+      })
     }else{
       this.setState({
         carrinho:carrinhoCarregado 
-      }, () => console.log(this.state.carrinho))
+      })
     } 
   };
  
@@ -219,7 +231,6 @@ class App extends React.Component {
       let carrinho = this.state.carrinho.filter((item) => {
         return item.produto.id != e.target.value
       })
-      console.log(carrinho)
       this.setState({
         carrinho : [...carrinho]
       })

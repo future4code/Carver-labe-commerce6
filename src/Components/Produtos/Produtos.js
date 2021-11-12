@@ -51,7 +51,6 @@ const CardProdutos = styled.div`
 const montarProdutos = (produtos, funcao) => {
     //carrega os produtos de acordo com os filtros
     if(!produtos.length){
-      console.log(produtos.length)
       let teste = <>
       <p>Produto Não Encontrado</p>
     </>

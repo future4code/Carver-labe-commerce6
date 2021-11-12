@@ -80,7 +80,6 @@ const montarProdutos = (produtos, funcao) => {
   };
 
 export default function Produtos(props) {
-  console.log(props.produtos.length);
   return (
     <AreaProdutos>
         <HeadProdutos>

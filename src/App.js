@@ -205,17 +205,30 @@ class App extends React.Component {
   }
 
   removerProdutoCarrinho = (e) =>{
-    // let produtoSelecionado = this.state.produtos.filter((produto) =>{
-    //   return produto.id == e.target.value
-    // })
+    let controle = 0;
+    let produtosCarrinho = this.state.carrinho.map((item) => {
+      if(item.produto.id == e.target.value && item.quantidade > 1){
+        controle++
+        item.quantidade--
+      }
 
-    let carrinho = this.state.carrinho.filter((item) => {
-      return item.produto.id != e.target.value
+      return item
     })
 
-    this.setState({
-      carrinho : [...carrinho]
-    })
+    if(controle == 0){
+      let carrinho = this.state.carrinho.filter((item) => {
+        return item.produto.id != e.target.value
+      })
+      console.log(carrinho)
+      this.setState({
+        carrinho : [...carrinho]
+      })
+    }else{
+      this.setState({
+        carrinho : produtosCarrinho
+      })
+    }
+
   }
 
   valorCarrinho = () => {

@@ -1,14 +1,10 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import Carrinho from "./Components/Carrinho/Carrinho";
 import Inputs from "./Components/Inputs/Inputs";
+import Produtos from "./Components/Produtos/Produtos";
 
 const Body = styled.div`
-  * {
-    margin: 0;
-    padding: 0;
-  }
-
   border: 1px solid red;
   min-height: 100vh;
   display: flex;
@@ -16,6 +12,13 @@ const Body = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+const EstiloGlobal = createGlobalStyle`
+  * {
+    margin: 0;
+    padding: 0;
+  }
+`
 
 const FilterArea = styled.section`
   border: 1px solid black;
@@ -25,13 +28,6 @@ const FilterArea = styled.section`
   h3 {
     margin-bottom: 10px;
   }
-`;
-
-const AreaProdutos = styled.section`
-  border: 1px solid green;
-  width: 50%;
-  padding: 1%;
-  height: 90vh;
 `;
 
 const AreaCarrinho = styled.section`
@@ -44,43 +40,6 @@ const AreaCarrinho = styled.section`
   align-items: stretch;
   h3 {
     margin-bottom: 10px;
-  }
-`;
-
-const HeadProdutos = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const AreaCardProdutos = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-`;
-const CardProdutos = styled.div`
-  border: 1px solid black;
-  width: 30%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-top: 5%;
-
-  div {
-    display: flex;
-    flex-direction: column;
-    padding: 10%;
-    p {
-      margin: 5px 0;
-    }
-  }
-
-  button {
-    width: 70%;
-    margin: 0 auto;
   }
 `;
 
@@ -203,20 +162,7 @@ class App extends React.Component {
         })
       }
     }
-    
-    //cria o JFX dos produtos
-    return produtos.map((produto) => {
-      return (
-        <CardProdutos>
-          <img src={produto.imagem} />
-          <div>
-            <h5>{produto.nome}</h5>
-            <p>R$<span>{produto.preco}</span></p>
-            <button value={produto.id} onClick={this.adicionaCarrinho}>Adcionar Ao Carrinho</button>
-          </div>
-        </CardProdutos>
-      );
-    });
+    return produtos
   };
 
   adicionaCarrinho = (e) => {
@@ -259,9 +205,9 @@ class App extends React.Component {
   }
 
   removerProdutoCarrinho = (e) =>{
-    let produtoSelecionado = this.state.produtos.filter((produto) =>{
-      return produto.id == e.target.value
-    })
+    // let produtoSelecionado = this.state.produtos.filter((produto) =>{
+    //   return produto.id == e.target.value
+    // })
 
     let carrinho = this.state.carrinho.filter((item) => {
       return item.produto.id != e.target.value
@@ -283,88 +229,49 @@ class App extends React.Component {
 
 
 
-  render() {
-    let produtosCarregados = this.carregarProdutos() 
+  render() { 
     let carrinhoProduto = this.carrinhoProduto()
-    this.valorCarrinho()
     return (
-      <Body>
-        <FilterArea>
-          <h3>Filtros</h3>
-          {/* <Filtro
-          /> */}
-          <Inputs
-            titulo="Valor Mínimo:"
-            valor={this.state.valorMinimo}
-            tipo="number"
-            funcao={this.onChangeValorMinimo}
-          />
-          <Inputs
-            titulo="Valor Máximo:"
-            valor={this.state.valorMaximo}
-            tipo="number"
-            funcao={this.onChangeValorMaximo}
-          />
-          <Inputs
-            titulo="Buscar por Nome:"
-            valor={this.state.bucarPorNome}
-            tipo="text"
-            funcao={this.onChangeBucarPorNome}
-            place="Camisa, Calça"
-          />
-          {/* <div>
-            <label>Valor Mínimo:</label>
-            <input
-              value={this.state.valorMinimo}
-              type="number"
-              onChange={this.onChangeValorMinimo}
+      <>
+        <EstiloGlobal/>
+        <Body>
+          <FilterArea>
+            <h3>Filtros</h3>
+            <Inputs
+              titulo="Valor Mínimo:"
+              valor={this.state.valorMinimo}
+              tipo="number"
+              funcao={this.onChangeValorMinimo}
             />
-          </div>
-          <div>
-            <label>Valor Máximo:</label>
-            <input
-              value={this.state.valorMaximo}
-              type="number"
-              onChange={this.onChangeValorMaximo}
+            <Inputs
+              titulo="Valor Máximo:"
+              valor={this.state.valorMaximo}
+              tipo="number"
+              funcao={this.onChangeValorMaximo}
             />
-          </div> */}
-          {/* <div>
-            <label>Buscar por Nome:</label>
-            <input
-              value={this.state.bucarPorNome}
-              type="text"
-              placeholder="Produtos"
-              onChange={this.onChangeBucarPorNome}
+            <Inputs
+              titulo="Buscar por Nome:"
+              valor={this.state.bucarPorNome}
+              tipo="text"
+              funcao={this.onChangeBucarPorNome}
+              place="Camisa, Calça"
             />
-          </div> */}
-        </FilterArea>
-        <AreaProdutos>
-          <HeadProdutos>
+          </FilterArea>
+          <Produtos
+            produtos={this.carregarProdutos()}
+            funcaoOrdem={this.onChangeOrdem}
+            funcaoAdcionarCarrinho={this.adicionaCarrinho}
+          />
+          <AreaCarrinho>
+            <h3>Carrinho:</h3>
+            {carrinhoProduto}
+            
             <p>
-              Quantidade de produtos: <b>{produtosCarregados.length}</b>
+              Valor total: <b>R$: {this.valorCarrinho()}</b>
             </p>
-            <div>
-              <label>Ordenação:</label>
-              <select onClick={this.onChangeOrdem}>
-                <option value="">Nenhum</option>
-                <option value="Crescente">Crescente</option>
-                <option value="Decrescente">Decrescente</option>
-              </select>
-            </div>
-          </HeadProdutos>
-          <AreaCardProdutos>
-            {produtosCarregados}
-          </AreaCardProdutos>
-        </AreaProdutos>
-        <AreaCarrinho>
-          <h3>Carrinho:</h3>
-          {carrinhoProduto}
-          
-          <p>
-            Valor total: <b>{this.valorCarrinho()}</b>
-          </p>
-        </AreaCarrinho>
-      </Body>
+          </AreaCarrinho>
+        </Body>
+      </>
     );
   }
 }

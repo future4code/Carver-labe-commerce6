@@ -7,14 +7,28 @@ const ProdutoCarrinho = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
+  border-bottom: 1px solid bisque;
+    div{
+      display: flex;
+    }
+    p{
+        margin-right: 5px;
+    }
+    img{
+        width: 10%;
+        cursor: pointer;
+    }
 `;
 
 export default function Carrinho(props) {
     return (
         <ProdutoCarrinho>
-            <p>{props.produto.quantidade}</p>
-            <p>{props.produto.produto.nome}</p>
-            <button value={props.produto.produto.id} onClick={props.funcao}>Remover</button>
+            <div>
+                <p><b>{props.produto.quantidade}x</b></p>
+                <p>{props.produto.produto.nome}</p>
+                <p><b>{props.produto.produto.preco}</b></p>
+            </div>
+            <img src="https://cdn-icons.flaticon.com/png/512/1476/premium/1476274.png?token=exp=1636769235~hmac=573a1b16eeee62549e99ac54e12de440" value={props.produto.produto.id} onClick={()=>props.funcao(props.produto.produto.id)}/>
         </ProdutoCarrinho>
     )
 }

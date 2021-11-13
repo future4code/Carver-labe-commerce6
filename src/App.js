@@ -1,5 +1,8 @@
 import React from "react";
+<<<<<<< HEAD
 import styled from "styled-components";
+=======
+>>>>>>> ef92236a74296edd9362cc463adb9798794fdea1
 import styled, { createGlobalStyle } from "styled-components";
 import Carrinho from "./Components/Carrinho/Carrinho";
 import Inputs from "./Components/Inputs/Inputs";
@@ -9,10 +12,6 @@ import App extends React.Component from "./Imagens-Produtos"
 
 
 const Body = styled.div`
-  * {
-    margin: 0;
-    padding: 0;
-  }
   border: 1px solid red;
   min-height: 100vh;
   display: flex;
@@ -60,6 +59,10 @@ const AreaCarrinho = styled.section`
     margin-bottom: 10px;
   }
 `;
+<<<<<<< HEAD
+=======
+
+>>>>>>> ef92236a74296edd9362cc463adb9798794fdea1
 const HeadProdutos = styled.div`
   display: flex;
   flex-direction: row;
@@ -92,7 +95,10 @@ const CardProdutos = styled.div`
     width: 70%;
     margin: 0 auto;
   }
+<<<<<<< HEAD
 `;
+=======
+>>>>>>> ef92236a74296edd9362cc463adb9798794fdea1
  }
 class App extends React.Component {
   state = {
@@ -135,7 +141,9 @@ class App extends React.Component {
       },
     ],
     quantidadeProdutos : null,
+
     bucarPorNome: "Produto1",
+
     bucarPorNome: "",
     valorMinimo: null,
     valorMaximo: null,
@@ -158,9 +166,12 @@ class App extends React.Component {
     localStorage.setItem("carrinho", JSON.stringify(this.state.carrinho))
   }
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> ef92236a74296edd9362cc463adb9798794fdea1
   componentDidMount(){
     let carrinhoPersistido = localStorage.getItem("carrinho")
     carrinhoPersistido = JSON.parse(carrinhoPersistido)
@@ -197,12 +208,17 @@ class App extends React.Component {
   onChangeOrdem = (e) => {
     this.setState({
       ordem: e.target.value
+<<<<<<< HEAD
     }, () => console.log(this.state.ordem))
+=======
+>>>>>>> ef92236a74296edd9362cc463adb9798794fdea1
     })
   }
 
   carregarProdutos = () => {
+
     return this.state.produtos.map((produto) => {
+
     //carrega os produtos de acordo com os filtros
     let produtos = this.filtrarProdutos()
     if(produtos.length == 0){
@@ -224,7 +240,10 @@ class App extends React.Component {
         })
       }
     }
+    return produtos
+  };
 
+<<<<<<< HEAD
 
     //cria o JFX dos produtos
     return produtos.map((produto) => {
@@ -241,6 +260,8 @@ class App extends React.Component {
     });
 
   }
+=======
+>>>>>>> ef92236a74296edd9362cc463adb9798794fdea1
 
     return produtos
   };
@@ -250,6 +271,15 @@ class App extends React.Component {
     let produtoSelecionado = this.state.produtos.filter((produto) =>{
       return produto.id == e.target.value
     })
+<<<<<<< HEAD
+=======
+
+
+
+
+
+
+>>>>>>> ef92236a74296edd9362cc463adb9798794fdea1
     let controle = 0;
     let carrinhoCarregado =  this.state.carrinho.map((itemCarrinho)=>{
       if(itemCarrinho.produto.id == e.target.value){
@@ -264,16 +294,70 @@ class App extends React.Component {
           quantidade: 1, 
           produto : produtoSelecionado[0]
         }]
+<<<<<<< HEAD
 
       },() => console.log(this.state.carrinho))
+=======
+        
+>>>>>>> ef92236a74296edd9362cc463adb9798794fdea1
       })
     }else{
       this.setState({
         carrinho:carrinhoCarregado 
+<<<<<<< HEAD
       }, () => console.log(this.state.carrinho))
+=======
+>>>>>>> ef92236a74296edd9362cc463adb9798794fdea1
       })
     } 
   };
+ 
+  carrinhoProduto = () => {
+    return this.state.carrinho.map((carrinho)=>{
+      return (
+        <Carrinho 
+          produto={carrinho}
+          funcao={this.removerProdutoCarrinho}
+        />
+      )
+    })
+  }
+
+  removerProdutoCarrinho = (e) =>{
+    let controle = 0;
+    let produtosCarrinho = this.state.carrinho.map((item) => {
+      if(item.produto.id == e.target.value && item.quantidade > 1){
+        controle++
+        item.quantidade--
+      }
+
+      return item
+    })
+
+    if(controle == 0){
+      let carrinho = this.state.carrinho.filter((item) => {
+        return item.produto.id != e.target.value
+      })
+      this.setState({
+        carrinho : [...carrinho]
+      })
+    }else{
+      this.setState({
+        carrinho : produtosCarrinho
+      })
+    }
+
+  }
+
+  valorCarrinho = () => {
+   let valorTotal = 0 
+    this.state.carrinho.map((item) =>{
+      valorTotal = (parseFloat(item.produto.preco) * parseFloat(item.quantidade)) + valorTotal
+    })
+    return valorTotal 
+  }
+
+
 
   carrinhoProduto = () => {
     return this.state.carrinho.map((carrinho)=>{
@@ -363,15 +447,18 @@ class App extends React.Component {
   }
 
 
+<<<<<<< HEAD
   
 
   render() {
 
     let produtosCarregados = this.carregarProdutos() 
+=======
+>>>>>>> ef92236a74296edd9362cc463adb9798794fdea1
     render() { 
     let carrinhoProduto = this.carrinhoProduto()
-    this.valorCarrinho()
     return (
+<<<<<<< HEAD
       <Body>
         <FilterArea>
           <h3>Filtros</h3>
@@ -405,6 +492,8 @@ class App extends React.Component {
               value={this.state.valorMinimo}
               type="number"
               onChange={this.onChangeValorMinimo}
+=======
+>>>>>>> ef92236a74296edd9362cc463adb9798794fdea1
       <>
         <EstiloGlobal/>
         <header>Header</header>
@@ -417,6 +506,7 @@ class App extends React.Component {
               tipo="number"
               funcao={this.onChangeValorMinimo}
             />
+<<<<<<< HEAD
           </div>
           <div>
             <label>Valor Máximo:</label>
@@ -424,12 +514,15 @@ class App extends React.Component {
               value={this.state.valorMaximo}
               type="number"
               onChange={this.onChangeValorMaximo}
+=======
+>>>>>>> ef92236a74296edd9362cc463adb9798794fdea1
             <Inputs
               titulo="Valor Máximo:"
               valor={this.state.valorMaximo}
               tipo="number"
               funcao={this.onChangeValorMaximo}
             />
+<<<<<<< HEAD
           </div>
           <div>
           </div> */}
@@ -440,6 +533,8 @@ class App extends React.Component {
               type="text"
               placeholder="Produtos"
               onChange={this.onChangeBucarPorNome}
+=======
+>>>>>>> ef92236a74296edd9362cc463adb9798794fdea1
             <Inputs
               titulo="Buscar por Nome:"
               valor={this.state.bucarPorNome}
@@ -447,11 +542,14 @@ class App extends React.Component {
               funcao={this.onChangeBucarPorNome}
               place="Camisa, Calça"
             />
+<<<<<<< HEAD
           </div>
           </div> */}
         </FilterArea>
         <AreaProdutos>
           <HeadProdutos>
+=======
+>>>>>>> ef92236a74296edd9362cc463adb9798794fdea1
           </FilterArea>
           <Produtos
             produtos={this.carregarProdutos()}
@@ -461,6 +559,7 @@ class App extends React.Component {
           <AreaCarrinho>
             <h3>Carrinho:</h3>
             {carrinhoProduto}
+<<<<<<< HEAD
 
             <p>
               Quantidade de produtos: <b>{produtosCarregados.length}</b>
@@ -496,10 +595,20 @@ class App extends React.Component {
 
 
       </Body>
+=======
+            
+            <p>
+              Valor total: <b>R$: {this.valorCarrinho()}</b>
+            </p>
+>>>>>>> ef92236a74296edd9362cc463adb9798794fdea1
           </AreaCarrinho>
         </Body>
       </>
     );
   }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> ef92236a74296edd9362cc463adb9798794fdea1
 export default App;

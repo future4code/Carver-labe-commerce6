@@ -86,43 +86,9 @@ const AreaCarrinho = styled.section`
     margin-bottom: 10px;
   }
 `;
-
-const HeadProdutos = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-const AreaCardProdutos = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-`;
-const CardProdutos = styled.div`
-  border: 1px solid black;
-  width: 30%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-top: 5%;
-  div {
-    display: flex;
-    flex-direction: column;
-    padding: 10%;
-    p {
-      margin: 5px 0;
-    }
-  }
-  button {
-    width: 70%;
-    margin: 0 auto;
-  }
- }
 class App extends React.Component {
   state = {
-    produtos: [
+    produtos:[
       {
         id: 1,
         imagem: "http://www.nasa.gov/sites/default/files/images/275039main_PLSS-OV_226x289.jpg",

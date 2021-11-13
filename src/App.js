@@ -87,44 +87,77 @@ const AreaCarrinho = styled.section`
   }
 `;
 
+const HeadProdutos = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+const AreaCardProdutos = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+`;
+const CardProdutos = styled.div`
+  border: 1px solid black;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 5%;
+  div {
+    display: flex;
+    flex-direction: column;
+    padding: 10%;
+    p {
+      margin: 5px 0;
+    }
+  }
+  button {
+    width: 70%;
+    margin: 0 auto;
+  }
+ }
 class App extends React.Component {
   state = {
     produtos: [
       {
         id: 1,
-        imagem: "https://picsum.photos/400/400?a=2",
-        nome: "Produto Um",
-        preco: "50,00",
+        imagem: "http://www.nasa.gov/sites/default/files/images/275039main_PLSS-OV_226x289.jpg",
+        nome: "Suporte primário do sistema:PLS",
+        preco: "41.000,00",
       },
       {
         id: Math.floor(Date.now() * Math.random()).toString(36),
-        imagem: "https://picsum.photos/400/400?a=2",
-        nome: "Produto Dois",
-        preco: "510,00",
+        imagem: "http://www.nasa.gov/sites/default/files/images/275044main_upper_226x170.jpg",
+        nome: "Parte superior do tronco",
+        preco: "51.000,00",
       },
       {
         id: Math.floor(Date.now() * Math.random()).toString(36),
-        imagem: "https://picsum.photos/400/400?a=2",
-        nome: "Produto Tres",
-        preco: "150,00",
+        imagem: "http://www.nasa.gov/sites/default/files/images/275034main_lower_226x413.jpg",
+        nome: "Tronco inferior ",
+        preco: "35.000,00",
       },
       {
         id: Math.floor(Date.now() * Math.random()).toString(36),
-        imagem: "https://picsum.photos/400/400?a=2",
-        nome: "Produto Quatro",
-        preco: "250,00",
+        imagem: "http://www.nasa.gov/sites/default/files/images/275028main_helm_226x189.jpg",
+        nome: "Capacete",
+        preco: "60.000,00",
       },
       {
         id: Math.floor(Date.now() * Math.random()).toString(36),
-        imagem: "https://picsum.photos/400/400?a=2",
-        nome: "Produto Cinco",
-        preco: "5,00",
+        imagem: "http://www.nasa.gov/sites/default/files/images/275021main_cca_226x170.jpg",
+        nome: "Comunicações-CCA",
+        preco: "15.000,00",
       },
       {
         id: Math.floor(Date.now() * Math.random()).toString(36),
-        imagem: "https://picsum.photos/400/400?a=2",
-        nome: "Produto Seis",
-        preco: "588,00",
+        imagem: "http://www.nasa.gov/sites/default/files/images/275032main_lcvg-front_226x301.jpg",
+        nome: "Roupa de Refrigeração Líquida e Ventilação",
+        preco: "25.000,00",
       },
     ],
     quantidadeProdutos: null,
@@ -138,13 +171,17 @@ class App extends React.Component {
         quantidade: 1,
         produto: {
           id: 1,
-          imagem: "https://picsum.photos/400/400?a=2",
-          nome: "Produto Cinco",
-          preco: "5,00",
-        },
-      },
-    ],
+          imagem: "http://www.nasa.gov/sites/default/files/images/275021main_cca_226x170.jpg",
+          nome: "Comunicações-CCA",
+          preco: "15.00,00",
+        }
+      }
+    ]
   };
+
+  componentDidUpdate() {
+    localStorage.setItem("carrinho", JSON.stringify(this.state.carrinho));
+  }
 
   componentDidUpdate() {
     localStorage.setItem("carrinho", JSON.stringify(this.state.carrinho));

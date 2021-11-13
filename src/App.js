@@ -203,7 +203,6 @@ class App extends React.Component {
   };
 
   carregarProdutos = () => {
-    //carrega os produtos de acordo com os filtros
     let produtos = this.filtrarProdutos();
     if (produtos.length == 0) {
       return (

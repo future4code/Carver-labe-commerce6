@@ -3,8 +3,7 @@ import styled from "styled-components";
 
 
 const AreaProdutos = styled.section`
-  border: 1px solid green;
-  width: 50%;
+  width: 60%;
   padding: 1%;
   height: 90vh;
 `;
@@ -14,6 +13,11 @@ const HeadProdutos = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+
+  select{
+    border: none;
+    border-bottom: 1px solid black;
+  }
 `;
 
 const AreaCardProdutos = styled.div`
@@ -26,12 +30,14 @@ const AreaCardProdutos = styled.div`
 
 const CardProdutos = styled.div`
   border: 1px solid black;
+  border-radius: 2%;
   width: 30%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin-top: 5%;
   margin-left:2%;
+  box-shadow: 7px 7px 21px 0px rgba(0, 0, 0, 0.75);
 
   div {
     display: flex;
@@ -43,8 +49,17 @@ const CardProdutos = styled.div`
   }
 
   button {
-    width: 70%;
     margin: 0 auto;
+    border: 1px solid black;
+    background-color: transparent;
+    padding: 3%;
+    background-image: url("https://img.freepik.com/fotos-gratis/estrelas-e-galaxia-espaco-ceu-noite-universo-preto-fundo-estrelado-de-starfield-brilhante_146539-85.jpg?size=626&ext=jpg");
+    color: white;
+    font-weight: 600;
+  }
+
+  button:hover{
+    cursor:pointer
   }
 `;
 
@@ -83,7 +98,7 @@ export default function Produtos(props) {
     <AreaProdutos>
         <HeadProdutos>
             <p>
-              Quantidade de produtos: <b>{props.produtos.length}</b>
+            <b>{props.produtos.length}</b> produtos carregados
             </p>
             <div>
               <label>Ordenação:</label>

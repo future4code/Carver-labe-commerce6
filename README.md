@@ -1,4 +1,4 @@
-**VazaStore**
+**VazaStore** https://better-story.surge.sh/
 
 **O que funciona**
 - Produtos carregando dinamicamente de acordo com os filtros.

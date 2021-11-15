@@ -64,7 +64,7 @@ const montarProdutos = (produtos, funcao) => {
                       R$<span>{produto.preco}</span>
                   </p>
                   <button value={produto.id} onClick={funcao}>
-                      Adcionar Ao Carrinho
+                      Adicionar Ao Carrinho
                   </button>
                   </div>
               </CardProdutos>

@@ -129,7 +129,7 @@ class App extends React.Component {
       {
         id: Math.floor(Date.now() * Math.random()).toString(36),
         imagem: "https://http2.mlstatic.com/D_NQ_NP_730905-MLB26316051067_112017-O.jpg",
-        nome: "Calça Galaxia Masculina",
+        nome: "Calça Galáxia Masculina",
         preco: 139.99,
       },
       {
@@ -390,9 +390,9 @@ class App extends React.Component {
       <>
         <EstiloGlobal />
         <Header>
-          <Logo src="https:moldura-pop.s3.sa-east-1.amazonaws.com/imagens-proprietarias/9629-AdmYpOo9LHpZE_C2XgSm8Md5btcmKrqd-cropped-3x4-browser.png" />
+          <Logo src="https://moldura-pop.s3.sa-east-1.amazonaws.com/imagens-proprietarias/12702-m48n1CxR2s1S35WBjyaJmCaL9Q3OpI1w-cropped-3x4-browser.png" />
           <div onClick={this.mostrarCarrinho}>
-            <Chart src="https:cdn-icons-png.flaticon.com/512/807/807911.png" />
+            <Chart src="https://cdn-icons-png.flaticon.com/512/807/807911.png" />
             {contadorIcone}
           </div>
         </Header>

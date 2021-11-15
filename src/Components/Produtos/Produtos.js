@@ -30,7 +30,7 @@ const AreaCardProdutos = styled.div`
 
 const CardProdutos = styled.div`
   border: 1px solid black;
-  border-radius: 2%;
+  border-radius: 0%;
   width: 30%;
   display: flex;
   flex-direction: column;
@@ -56,10 +56,12 @@ const CardProdutos = styled.div`
     background-image: url("https://img.freepik.com/fotos-gratis/estrelas-e-galaxia-espaco-ceu-noite-universo-preto-fundo-estrelado-de-starfield-brilhante_146539-85.jpg?size=626&ext=jpg");
     color: white;
     font-weight: 600;
+
   }
 
   button:hover{
-    cursor:pointer
+    cursor:pointer;
+    
   }
 `;
 

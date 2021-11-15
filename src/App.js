@@ -16,6 +16,7 @@ const EstiloGlobal = createGlobalStyle`
   * {
     margin: 0;
     padding: 0;
+    
   }
 `;
 const Header = styled.header`
@@ -50,6 +51,7 @@ const ContadorCarrinho = styled.span`
   color: white;
   background-color: red;
   font-size: 10px;
+  
 `;
 
 const Logo = styled.img`
@@ -84,6 +86,7 @@ const AreaCarrinho = styled.section`
   align-items: stretch;
   h3 {
     margin-bottom: 10px;
+    
   }
 `;
 
@@ -118,47 +121,66 @@ const CardProdutos = styled.div`
   button {
     width: 70%;
     margin: 0 auto;
-  }
- }
+  }`
+ 
 class App extends React.Component {
   state = {
     produtos: [
       {
-        id: 1,
-        imagem: "http://www.nasa.gov/sites/default/files/images/275039main_PLSS-OV_226x289.jpg",
-        nome: "Suporte primário do sistema:PLS",
-        preco: "41.000,00",
+        id: Math.floor(Date.now() * Math.random()).toString(36),
+        imagem: "https://http2.mlstatic.com/D_NQ_NP_730905-MLB26316051067_112017-O.jpg",
+        nome: "Calça Galáxia Masculina",
+        preco: 139.99,
       },
       {
         id: Math.floor(Date.now() * Math.random()).toString(36),
-        imagem: "http://www.nasa.gov/sites/default/files/images/275044main_upper_226x170.jpg",
-        nome: "Parte superior do tronco",
-        preco: "51.000,00",
+        imagem: "http://pm1.narvii.com/6925/a78e10ff8f230a8444876c3b34cc1a25ac3cf551r1-600-600v2_uhq.jpg",
+        nome: "Sabre de Luz Azul",
+        preco: 299.99,
       },
       {
         id: Math.floor(Date.now() * Math.random()).toString(36),
-        imagem: "http://www.nasa.gov/sites/default/files/images/275034main_lower_226x413.jpg",
-        nome: "Tronco inferior ",
-        preco: "35.000,00",
+        imagem: "https://sm.ign.com/t/ign_br/screenshot/default/the-child-star-wars-gallery-5e3204bdad395_95ku.620.jpg",
+        nome: "Boneco Yoda ",
+        preco: 150.99,
       },
       {
         id: Math.floor(Date.now() * Math.random()).toString(36),
-        imagem: "http://www.nasa.gov/sites/default/files/images/275028main_helm_226x189.jpg",
-        nome: "Capacete",
-        preco: "60.000,00",
+        imagem: "https://www.veinerd.com/uploads/products/large/vaza-masc-1.jpg",
+        nome: "Camiseta Vaza Unissex",
+        preco: 69.99,
       },
       {
         id: Math.floor(Date.now() * Math.random()).toString(36),
-        imagem: "http://www.nasa.gov/sites/default/files/images/275021main_cca_226x170.jpg",
-        nome: "Comunicações-CCA",
-        preco: "15.000,00",
+        imagem: "https://cdn.shopify.com/s/files/1/0242/1302/8919/products/H8293c856fb344e10ad0c4539ee808d17K_ff7ebf90-819d-4cae-bc9f-9024665c7900.jpg?v=1614781195",
+        nome: "Luminária Foguete",
+        preco: 99.99,
       },
       {
         id: Math.floor(Date.now() * Math.random()).toString(36),
-        imagem: "http://www.nasa.gov/sites/default/files/images/275032main_lcvg-front_226x301.jpg",
-        nome: "Roupa de Refrigeração Líquida e Ventilação",
-        preco: "25.000,00",
+        imagem: "https://d3ugyf2ht6aenh.cloudfront.net/stores/934/649/products/caneca-vaza-nao-invada-meu-espaco1-ed8c100d39dc3381d316163693499900-1024-1024.jpg",
+        nome: "Caneca Vaza",
+        preco: 50.49,
       },
+      {
+        id: Math.floor(Date.now() * Math.random()).toString(36),
+        imagem: "https://litb-cgis.rightinthebox.com/images/640x640/202109/bps/product/inc/ttueds1632474913681.jpg",
+        nome: "Agasalho Galáxia",
+        preco: 299.99,
+      },
+      {
+        id: Math.floor(Date.now() * Math.random()).toString(36),
+        imagem: "http://cdn.shopify.com/s/files/1/0019/1604/3327/products/meia-cano-alto-divertida-vaza-min_1200x1200.png?v=1606240902",
+        nome: "Meia Vaza",
+        preco: 49.99,
+      },
+      {
+        id: Math.floor(Date.now() * Math.random()).toString(36),
+        imagem: "https://img.elo7.com.br/product/main/39AE2F6/chaveiro-galaxia-andromeda-chaveirogalaxia.jpg",
+        nome: "Chaveiro Galax",
+        preco: 50.49,
+      },    
+    
     ],
     quantidadeProdutos: null,
     bucarPorNome: "",
@@ -171,9 +193,9 @@ class App extends React.Component {
         quantidade: 1,
         produto: {
           id: 1,
-          imagem: "http://www.nasa.gov/sites/default/files/images/275021main_cca_226x170.jpg",
-          nome: "Comunicações-CCA",
-          preco: "15.00,00",
+          imagem: null ,
+          nome: null,
+          preco: null 
         }
       }
     ]
@@ -249,7 +271,7 @@ class App extends React.Component {
       );
     }
 
-    //coloca os produtos de acordo com a orde
+    //coloca os produtos de acordo com a ordem
     if (this.state.ordem != null) {
       if (this.state.ordem == "Crescente") {
         produtos = produtos.sort((a, b) => {
@@ -368,9 +390,9 @@ class App extends React.Component {
       <>
         <EstiloGlobal />
         <Header>
-          <Logo src="https:moldura-pop.s3.sa-east-1.amazonaws.com/imagens-proprietarias/9629-AdmYpOo9LHpZE_C2XgSm8Md5btcmKrqd-cropped-3x4-browser.png" />
+          <Logo src="https://moldura-pop.s3.sa-east-1.amazonaws.com/imagens-proprietarias/12702-m48n1CxR2s1S35WBjyaJmCaL9Q3OpI1w-cropped-3x4-browser.png" />
           <div onClick={this.mostrarCarrinho}>
-            <Chart src="https:cdn-icons-png.flaticon.com/512/807/807911.png" />
+            <Chart src="https://cdn-icons-png.flaticon.com/512/807/807911.png" />
             {contadorIcone}
           </div>
         </Header>
@@ -393,7 +415,7 @@ class App extends React.Component {
               valor={this.state.bucarPorNome}
               tipo="text"
               funcao={this.onChangeBucarPorNome}
-              place="Camisa, Calça"
+              place ="Calça, Camiseta"
             />
           </FilterArea>
           <Produtos

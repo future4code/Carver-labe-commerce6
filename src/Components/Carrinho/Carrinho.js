@@ -28,7 +28,7 @@ export default function Carrinho(props) {
                 <p>{props.produto.produto.nome}</p>
                 <p><b>{props.produto.produto.preco}</b></p>
             </div>
-            <img src="https://cdn-icons.flaticon.com/png/512/1476/premium/1476274.png?token=exp=1636769235~hmac=573a1b16eeee62549e99ac54e12de440" value={props.produto.produto.id} onClick={()=>props.funcao(props.produto.produto.id)}/>
+            <img src="https://icon-library.com/images/explode-icon/explode-icon-20.jpg" value={props.produto.produto.id} onClick={()=>props.funcao(props.produto.produto.id)}/>
         </ProdutoCarrinho>
     )
 }
